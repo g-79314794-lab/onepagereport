@@ -1,1 +1,143 @@
-<!doctype html><html lang="ms"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Sistem Laporan Satu Muka Sekolah</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penjana One Page Report Aktiviti Sekolah</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Laporan Aktiviti Sekolah</p>
+      <h1>Penjana One Page Report</h1>
+      <p>Isi maklumat aktiviti, semak pratonton A4, kemudian cetak atau simpan sebagai PDF.</p>
+    </div>
+    <button id="printBtn" type="button">Cetak / Simpan PDF</button>
+  </header>
+
+  <main class="app-shell">
+    <section class="panel form-panel" aria-labelledby="formTitle">
+      <h2 id="formTitle">Maklumat laporan</h2>
+      <form id="reportForm">
+        <label>Nama sekolah
+          <input name="school" value="SK Seri Cemerlang" required>
+        </label>
+        <label>Tajuk aktiviti
+          <input name="title" value="Program Gotong-Royong Perdana" required>
+        </label>
+        <div class="grid-2">
+          <label>Tarikh
+            <input name="date" type="date" required>
+          </label>
+          <label>Masa
+            <input name="time" value="8.00 pagi - 12.00 tengah hari">
+          </label>
+        </div>
+        <label>Tempat
+          <input name="venue" value="Kawasan sekolah">
+        </label>
+        <div class="grid-2">
+          <label>Penganjur
+            <input name="organizer" value="Unit Kokurikulum">
+          </label>
+          <label>Bilangan peserta
+            <input name="participants" value="120 murid, 18 guru, 25 ibu bapa">
+          </label>
+        </div>
+        <label>Objektif
+          <textarea name="objectives" rows="4">Memupuk budaya kebersihan sekolah.
+Menggalakkan kerjasama antara warga sekolah dan komuniti.
+Menceriakan persekitaran pembelajaran murid.</textarea>
+        </label>
+        <label>Ringkasan aktiviti
+          <textarea name="summary" rows="5">Program dimulakan dengan taklimat keselamatan, pembahagian kumpulan, aktiviti membersihkan kelas, taman, kantin dan kawasan padang. Program diakhiri dengan sesi refleksi dan penyampaian penghargaan kepada kumpulan terbaik.</textarea>
+        </label>
+        <div class="grid-3">
+          <label>Kos / peruntukan
+            <input name="cost" value="RM350.00">
+          </label>
+          <label>Impak
+            <input name="impact" value="Persekitaran lebih bersih dan ceria">
+          </label>
+          <label>Status
+            <select name="status">
+              <option>Selesai</option>
+              <option>Dalam tindakan</option>
+              <option>Ditangguhkan</option>
+            </select>
+          </label>
+        </div>
+        <label>Cadangan penambahbaikan
+          <textarea name="improvement" rows="3">Sediakan lebih banyak peralatan kebersihan dan libatkan agensi luar untuk aktiviti akan datang.</textarea>
+        </label>
+        <label>Gambar aktiviti
+          <input id="photoInput" name="photos" type="file" accept="image/*" multiple>
+        </label>
+        <button type="reset" class="secondary">Pulihkan contoh</button>
+      </form>
+    </section>
+
+    <section class="preview-wrap" aria-labelledby="previewTitle">
+      <div class="preview-toolbar">
+        <h2 id="previewTitle">Pratonton satu halaman</h2>
+        <span>A4 potret</span>
+      </div>
+      <article id="report" class="report-page">
+        <div class="report-header">
+          <div class="crest">LOGO</div>
+          <div>
+            <p id="rSchool" class="school-name"></p>
+            <h2 id="rTitle"></h2>
+            <p class="muted">One Page Report Aktiviti Sekolah</p>
+          </div>
+          <span id="rStatus" class="status-pill"></span>
+        </div>
+
+        <dl class="meta-grid">
+          <div><dt>Tarikh</dt><dd id="rDate"></dd></div>
+          <div><dt>Masa</dt><dd id="rTime"></dd></div>
+          <div><dt>Tempat</dt><dd id="rVenue"></dd></div>
+          <div><dt>Penganjur</dt><dd id="rOrganizer"></dd></div>
+          <div><dt>Peserta</dt><dd id="rParticipants"></dd></div>
+          <div><dt>Kos</dt><dd id="rCost"></dd></div>
+        </dl>
+
+        <div class="content-grid">
+          <section>
+            <h3>Objektif</h3>
+            <ul id="rObjectives"></ul>
+          </section>
+          <section>
+            <h3>Impak</h3>
+            <p id="rImpact" class="highlight"></p>
+          </section>
+        </div>
+
+        <section>
+          <h3>Ringkasan Pelaksanaan</h3>
+          <p id="rSummary"></p>
+        </section>
+
+        <section>
+          <h3>Gambar Aktiviti</h3>
+          <div id="photoGrid" class="photo-grid"><div>Tambah gambar untuk pratonton.</div></div>
+        </section>
+
+        <section>
+          <h3>Cadangan Penambahbaikan</h3>
+          <p id="rImprovement"></p>
+        </section>
+
+        <footer class="signatures">
+          <div><span>Disediakan oleh</span><strong>__________________</strong></div>
+          <div><span>Disemak oleh</span><strong>__________________</strong></div>
+          <div><span>Tarikh</span><strong>__________________</strong></div>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
