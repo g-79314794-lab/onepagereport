@@ -1,0 +1,42 @@
+{
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "vite --host 0.0.0.0",
+    "server": "node server/index.js",
+    "build": "vite build",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "latest",
+    "@vitejs/plugin-react": "latest",
+    "concurrently": "latest",
+    "cors": "latest",
+    "docx": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "file-saver": "latest",
+    "html-to-image": "latest",
+    "lucide-react": "latest",
+    "mongoose": "latest",
+    "multer": "latest",
+    "nanoid": "latest",
+    "openai": "latest",
+    "pdf-lib": "latest",
+    "qrcode": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-hook-form": "latest",
+    "recharts": "latest",
+    "sharp": "latest",
+    "tailwindcss": "latest",
+    "vite": "latest",
+    "xlsx": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "eslint": "latest",
+    "globals": "latest"
+  }
+}
