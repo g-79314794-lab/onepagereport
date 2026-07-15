@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { uploadToCloud, restoreBackup } from '../services/cloudConnectors.js';
+import { notify, listNotifications } from '../services/notifications.js';
+import { nextApprovalStatus, signApproval } from '../services/workflow.js';
+const router = Router();
+router.get('/google-drive/oauth-url', (_, res) => res.json({ url: 'https://accounts.google.com/o/oauth2/v2/auth', status: 'placeholder-oauth-url' }));
+router.post('/cloud/upload', async (req, res) => { const result = await uploadToCloud({ ...req.body, buffer: Buffer.from(req.body.content || '') }); notify('cloud-sync', 'Fail berjaya dihantar ke awan.', result); res.json(result); });
+router.post('/backup', (req, res) => { const item = notify('backup', `Backup ${req.body.schedule || 'manual'} selesai.`, req.body); res.json({ status: 'backup-completed', notification: item }); });
+router.post('/restore', async (req, res) => res.json(await restoreBackup(req.body)));
+router.post('/calendar/ics', (req, res) => { const { title = 'Aktiviti Sekolah', date = new Date().toISOString().slice(0,10) } = req.body; res.type('text/calendar').send(`BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${title}\nDTSTART;VALUE=DATE:${date.replaceAll('-', '')}\nEND:VEVENT\nEND:VCALENDAR`); });
+router.post('/workflow/approve', (req, res) => res.json({ status: nextApprovalStatus(req.body.status), signature: signApproval(req.body) }));
+router.get('/notifications', (_, res) => res.json(listNotifications()));
+export default router;
