@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import mongoose from 'mongoose';
+import { nanoid } from 'nanoid';
+import { Report } from '../models/Report.js';
+const router = Router();
+const memory = [];
+const dbReady = () => mongoose.connection.readyState === 1;
+router.get('/', async (_, res) => res.json(dbReady() ? await Report.find().sort({ createdAt: -1 }).limit(50) : memory));
+router.post('/', async (req, res) => { const doc = { id: nanoid(), ...req.body, createdAt: new Date() }; if (dbReady()) return res.status(201).json(await Report.create(doc)); memory.unshift(doc); res.status(201).json(doc); });
+router.put('/:id', async (req, res) => { if (dbReady()) return res.json(await Report.findByIdAndUpdate(req.params.id, req.body, { new: true })); const i = memory.findIndex(r => r.id === req.params.id); memory[i] = { ...memory[i], ...req.body }; res.json(memory[i]); });
+router.delete('/:id', async (req, res) => { if (dbReady()) await Report.findByIdAndDelete(req.params.id); else memory.splice(memory.findIndex(r => r.id === req.params.id), 1); res.json({ berjaya: true }); });
+export default router;
